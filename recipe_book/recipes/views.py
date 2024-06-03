@@ -65,3 +65,14 @@ class RecipeGetPutDelete(APIView):
             status=status.HTTP_204_NO_CONTENT,
         )
 
+
+class RecipeSearch(APIView):
+    def get(self, request):
+        query = request.query_params.get("q", "")
+        recipes = Recipe.objects.filter(title__icontains=query) | Recipe.objects.filter(
+            category__icontains=query
+        )
+        if not recipes:
+            return Response({"message": "No recipes found"}, status=status.HTTP_200_OK)
+        serializer = RecipeSerializer(recipes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
