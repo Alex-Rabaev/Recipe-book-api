@@ -19,3 +19,49 @@ class RecipeCreateOrListAll(APIView):
         if not recipes:
             return Response({"message": "There are no recipes yet"}, status=status.HTTP_200_OK)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class RecipeGetPutDelete(APIView):
+    def get(self, request, id):
+        try:
+            recipe = Recipe.objects.get(id=id)
+        except Recipe.DoesNotExist:
+            return Response(
+                {"message": "The recipe doesn't exist"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        serializer = RecipeSerializer(recipe)
+        return Response(serializer.data)
+
+    def put(self, request, id):
+        try:
+            recipe = Recipe.objects.get(id=id)
+        except Recipe.DoesNotExist:
+            return Response(
+                {"message": "The recipe doesn't exist"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        serializer = RecipeSerializer(recipe, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, id):
+        try:
+            recipe = Recipe.objects.get(id=id)
+        except Recipe.DoesNotExist:
+            return Response(
+                {"message": "The recipe doesn't exist"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        title = recipe.title
+        recipe.delete()
+        return Response(
+            {
+                "message": "The recipe has been deleted",
+                "title": title,
+            },
+            status=status.HTTP_204_NO_CONTENT,
+        )
+
