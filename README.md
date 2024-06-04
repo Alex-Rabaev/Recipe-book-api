@@ -57,3 +57,115 @@ The application will be available at `http://127.0.0.1:8000/`.
 - **Update a Recipe: PUT /api/recipes/{id}**
 - **Delete a Recipe: DELETE /api/recipes/{id}**
 - **Search Recipes: GET /api/recipes/search?q={query}**
+
+## Example Request and Response
+
+### Create a Recipe
+
+**Request**:
+```json
+POST /api/recipes
+{
+    "title": "Spaghetti Carbonara",
+    "description": "A classic Italian pasta dish with a creamy egg sauce.",
+    "ingredients": [
+        "200g spaghetti",
+        "100g pancetta",
+        "2 large eggs",
+        "50g grated Parmesan cheese",
+        "Salt",
+        "Black pepper"
+    ],
+    "instructions": "...",
+    "category": "Pasta"
+}
+```
+**Response**:
+```json
+{
+    "id": 1,
+    "title": "Spaghetti Carbonara",
+    "description": "A classic Italian pasta dish with a creamy egg sauce.",
+    "ingredients": [
+        "200g spaghetti",
+        "100g pancetta",
+        "2 large eggs",
+        "50g grated Parmesan cheese",
+        "Salt",
+        "Black pepper"
+    ],
+    "instructions": "...",
+    "category": "Pasta"
+}
+```
+
+### Update a Recipe
+
+**Request**:
+```json
+PUT /api/recipes/1
+{
+    "title": "Updated Spaghetti Carbonara",
+    "instructions": "Updated instructions...",
+    "category": "Pasta Carbonara"
+}
+```
+**Response**:
+```json
+{
+    "id": 1,
+    "title": "Updated Spaghetti Carbonara",
+    "description": "An updated description.",
+    "ingredients": [
+        "250g spaghetti",
+        "150g pancetta",
+        "3 large eggs",
+        "70g grated Parmesan cheese",
+        "Salt",
+        "Black pepper"
+    ],
+    "instructions": "Updated instructions...",
+    "category": "Pasta Carbonara"
+}
+```
+
+### Delete a Recipe
+
+**Request**:
+```http
+DELETE /api/recipes/1
+```
+**Response**:
+```json
+{
+    "message": "The recipe has been deleted",
+    "title": "Spaghetti Carbonara"
+}
+```
+
+### Search Recipes
+
+**Request**:
+```http
+GET /api/recipes/search?q=Spaghetti
+```
+**Response**:
+```json
+[
+    {
+        "id": 1,
+        "title": "Spaghetti Carbonara",
+        "description": "A classic Italian pasta dish with a creamy egg sauce.",
+        "ingredients": [
+            "200g spaghetti",
+            "100g pancetta",
+            "2 large eggs",
+            "50g grated Parmesan cheese",
+            "Salt",
+            "Black pepper"
+        ],
+        "instructions": "...",
+        "category": "Pasta"
+    }
+]
+```
