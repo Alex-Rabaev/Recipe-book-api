@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Recipe
+from recipe.models import Recipe
 from .serializers import RecipeSerializer
 
 
@@ -17,11 +17,13 @@ class RecipeCreateOrListAll(APIView):
         recipes = Recipe.objects.all()
         serializer = RecipeSerializer(recipes, many=True)
         if not recipes:
-            return Response({"message": "There are no recipes yet"}, status=status.HTTP_200_OK)
+            return Response(
+                {"message": "There are no recipes yet"}, status=status.HTTP_200_OK
+            )
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class RecipeGetPutDelete(APIView):
+class RecipeDetails(APIView):
     def get(self, request, id):
         try:
             recipe = Recipe.objects.get(id=id)
