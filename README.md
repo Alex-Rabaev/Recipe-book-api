@@ -1,11 +1,11 @@
 # Recipe Book API
 
-This is a Django-based RESTful API for managing recipes. It includes endpoints for creating, retrieving, updating, deleting, and searching recipes.
+Django-based RESTful API for managing recipes.
 
 ## Prerequisites
 
 - Python 3.6+
-- Virtualenv (optional but recommended)
+- Virtualenv
 
 ## Installation
 
