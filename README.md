@@ -41,16 +41,12 @@ Django-based RESTful API for managing recipes.
 ## Running Tests
 
 To run the tests, use the following command:
-    ```bash
-    python manage.py test
-    ```
+    `python manage.py test`
 
 ## Running the Application
 
 To start the Django development server, run:
-    ```bash
-    python manage.py runserver
-    ```
+    `python manage.py runserver`
 The application will be available at `http://127.0.0.1:8000/`.
 
 ## API Endpoints
