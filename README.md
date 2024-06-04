@@ -28,6 +28,7 @@ Django-based RESTful API for managing recipes.
 
 3. **Install the dependencies**:
     ```bash
+    cd recipe-book
     pip install -r requirements.txt
     ```
 
