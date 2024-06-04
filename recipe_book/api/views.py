@@ -16,10 +16,6 @@ class RecipeCreateOrListAll(APIView):
     def get(self, request):
         recipes = Recipe.objects.all()
         serializer = RecipeSerializer(recipes, many=True)
-        if not recipes:
-            return Response(
-                {"message": "There are no recipes yet"}, status=status.HTTP_200_OK
-            )
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -64,7 +60,7 @@ class RecipeDetails(APIView):
                 "message": "The recipe has been deleted",
                 "title": title,
             },
-            status=status.HTTP_204_NO_CONTENT,
+            status=status.HTTP_200_OK,
         )
 
 
@@ -74,7 +70,7 @@ class RecipeSearch(APIView):
         recipes = Recipe.objects.filter(title__icontains=query) | Recipe.objects.filter(
             category__icontains=query
         )
-        if not recipes:
+        if not recipes.exists():
             return Response({"message": "No recipes found"}, status=status.HTTP_200_OK)
         serializer = RecipeSerializer(recipes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
